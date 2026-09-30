@@ -1,0 +1,24 @@
+[project]
+name = "tp-opencv"
+version = "0.1.0"
+description = "TP OpenCV : traitement d'image et analyse d'une scène"
+authors = [
+    {name = "Bulcasal",email = "117996381+Bulcasal@users.noreply.github.com"}
+]
+requires-python = ">=3.14, <4.0"
+dependencies = [
+    "opencv-python (>=5.0.0.93,<6.0.0.0)",
+    "numpy (>=2.5.3,<3.0.0)",
+    "matplotlib (>=3.11.2,<4.0.0)"
+]
+
+[tool.poetry]
+packages = [{include = "tp_opencv", from = "src"}]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+start = "tp_opencv.main:main"
+detecteur = "tp_opencv.detecteur_objets:main"
