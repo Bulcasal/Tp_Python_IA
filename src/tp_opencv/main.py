@@ -8,7 +8,7 @@ LARGEUR_AFFICHAGE = 640
 
 
 def montrer(titre, images, nom_fichier, no_gui):
-    """Affiche une ou plusieurs images côte à côte avec matplotlib."""
+    "Affiche une ou plusieurs images côte à côte avec matplotlib"
     fig, axes = plt.subplots(1, len(images), figsize=(3.5 * len(images), 3), squeeze=False)
     for ax, (sous_titre, im) in zip(axes[0], images):
         ax.imshow(im, cmap="gray" if im.ndim == 2 else None)
@@ -26,7 +26,7 @@ def montrer(titre, images, nom_fichier, no_gui):
 
 def main():
     parser = argparse.ArgumentParser(description="TP OpenCV, étapes 1 à 4.")
-    parser.add_argument("image", nargs="?", default="artikodin.jpg")
+    parser.add_argument("image", nargs="?", default="sunsettree.jpg")
     parser.add_argument("--no-gui", action="store_true", help="n'ouvre aucune fenêtre (sauvegarde dans sortie/)")
     args = parser.parse_args()
 
@@ -53,7 +53,7 @@ def main():
 
     img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     montrer("Étape 1 : BGR vs RGB", [
-        ("Sans conversion (le bleu devient orange)", img),
+        ("Sans conversion", img),
         ("Après conversion RGB", img_rgb),
     ], "etape1", args.no_gui)
 
@@ -70,12 +70,11 @@ def main():
 
     #  Étape 3
     print("\nÉtape 3")
-    # Le logo est BLANC sur fond bleu : objets plus clairs que le fond -> THRESH_BINARY
+    # Le logo est blanc sur fond bleu : objets plus clairs que le fond -> THRESH_BINARY
     _, binaire_manuel = cv2.threshold(flou_gauss, 200, 255, cv2.THRESH_BINARY)
     seuil_otsu, binaire_otsu = cv2.threshold(flou_gauss, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
     print(f"Seuil manuel = 200, seuil d'Otsu calculé = {seuil_otsu:.0f}")
-    print("Avantage d'Otsu : le seuil est calculé automatiquement (minimise la variance intra-classe")
-    print("de l'histogramme), sans réglage manuel, et s'adapte à chaque image / éclairage.")
+    print("Otsu : le seuil est calculé automatiquement")
 
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     # Teinte H sous OpenCV : 0-179. Bleu ~ 100-130. Blanc = saturation faible + valeur forte.
